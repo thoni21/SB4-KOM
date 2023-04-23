@@ -118,4 +118,9 @@ public class MovingPart
         positionPart.setRadians(radians);
     }
 
+
+    public void setSpeed(float speed) {
+        this.acceleration = speed;
+        this.maxSpeed = speed;
+    }
 }

@@ -1,5 +1,8 @@
 package dk.sdu.mmmi.cbse.main;
 
+import asteroid.AsteroidController;
+import asteroid.AsteroidPlugin;
+import collision.CollisionDetection;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +13,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
@@ -26,6 +30,8 @@ public class Game
 
     private final GameData gameData = new GameData();
     private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
+    private List<IPostEntityProcessingService> postEntityProcessors = new ArrayList<>();
+
     private List<IGamePluginService> entityPlugins = new ArrayList<>();
     private World world = new World();
 
@@ -55,10 +61,21 @@ public class Game
         IEntityProcessingService enemyProcess = new EnemyController();
         entityPlugins.add(enemyPlugin);
         entityProcessors.add(enemyProcess);
+
+        IGamePluginService asteroidPlugin = new AsteroidPlugin();
+        IEntityProcessingService asteroidProcess = new AsteroidController();
+        entityPlugins.add(asteroidPlugin);
+        entityProcessors.add(asteroidProcess);
+
+        IPostEntityProcessingService collisionDetection = new CollisionDetection();
+        postEntityProcessors.add(collisionDetection);
+
+
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
         }
+
     }
 
     @Override
@@ -82,6 +99,10 @@ public class Game
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }
+        for(IPostEntityProcessingService postEntityProcessingService : postEntityProcessors){
+            postEntityProcessingService.process(gameData,world);
+        }
+
     }
 
     private void draw() {
