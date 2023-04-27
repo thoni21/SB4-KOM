@@ -2,6 +2,8 @@ package dk.sdu.mmmi.cbse.main;
 
 import asteroid.AsteroidController;
 import asteroid.AsteroidPlugin;
+import bullet.BulletController;
+import bullet.BulletPlugin;
 import collision.CollisionDetection;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -66,6 +68,11 @@ public class Game
         IEntityProcessingService asteroidProcess = new AsteroidController();
         entityPlugins.add(asteroidPlugin);
         entityProcessors.add(asteroidProcess);
+
+        IGamePluginService bulletPlguin = new BulletPlugin();
+        IEntityProcessingService bulletController = new BulletController();
+        entityPlugins.add(bulletPlguin);
+        entityProcessors.add(bulletController);
 
         IPostEntityProcessingService collisionDetection = new CollisionDetection();
         postEntityProcessors.add(collisionDetection);

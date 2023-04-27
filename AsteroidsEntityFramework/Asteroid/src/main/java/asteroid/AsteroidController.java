@@ -6,9 +6,13 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.services.IAsteroidSplitter;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class AsteroidController implements IEntityProcessingService{
+
+    private IAsteroidSplitter asteroidSplitter = new AsteroidSplitter();
+
     @Override
     public void process(GameData gameData, World world) {
 
@@ -33,9 +37,9 @@ public class AsteroidController implements IEntityProcessingService{
             positionPart.process(gameData, asteroid);
 
             // Split event
-            //if (lifePart.isHit()) {
-            //    asteroidSplitter.createSplitAsteroid(asteroid, world);
-            //}
+            if (lifePart.isHit()) {
+                asteroidSplitter.createSplitAsteroid(asteroid, world);
+            }
             setShape(asteroid, numPoints);
         }
     }
