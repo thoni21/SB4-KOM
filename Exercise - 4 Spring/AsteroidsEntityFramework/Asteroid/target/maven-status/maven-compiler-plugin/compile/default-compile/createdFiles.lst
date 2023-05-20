@@ -1,0 +1,5 @@
+asteroid\Asteroid.class
+asteroid\AsteroidController.class
+asteroid\AsteroidPlugin.class
+module-info.class
+asteroid\AsteroidSplitter.class
