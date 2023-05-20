@@ -19,6 +19,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+
+        <surefire.version>3.0.0</surefire.version>
+        <junit.jupiter.version>5.9.1</junit.jupiter.version>
+        <junit.platform.version>1.9.1</junit.platform.version>
+        <mockito.core.version>5.3.1</mockito.core.version>
     </properties>
     <build>
         <plugins>
@@ -32,6 +37,12 @@
                 <configuration>
                     <fork>true</fork>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
             </plugin>
 
             <plugin>

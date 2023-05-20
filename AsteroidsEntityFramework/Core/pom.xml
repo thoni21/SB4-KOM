@@ -42,7 +42,6 @@
             <version>5.2.21.RELEASE</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
